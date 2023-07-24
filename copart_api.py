@@ -6,18 +6,15 @@ from flask import Flask, jsonify
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
+import undetected_chromedriver as uc
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
 
 def get_chrome_driver():
     chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--headless')
     chrome_options.add_argument('--no-sandbox')
     chrome_options.add_argument('--window-size=1920,1080')
-    chrome_options.add_argument('--headless')
-    chrome_options.add_argument('--disable-dev-shm-usage')
-    chrome_options.add_argument("--remote-debugging-port=9222")
-    chrome_options.add_experimental_option('excludeSwitches', ['enable-logging'])
-    driver = webdriver.Chrome(ChromeDriverManager().install(), options=chrome_options)
+    driver = webdriver.Chrome(options=chrome_options)
     return driver
 
 def is_element_exists(driver, by, element):
@@ -151,5 +148,5 @@ def get_vehicle_data(title):
     data = filtered_df.to_dict(orient='records')
     return jsonify(data)
 if __name__ == '__main__':
-    app.run(host="0.0.0.0",port=5000,debug=True)
+    app.run(debug=True)
 
