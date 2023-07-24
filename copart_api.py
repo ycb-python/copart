@@ -6,8 +6,8 @@ from flask import Flask, jsonify
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import undetected_chromedriver as uc
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 
 def get_chrome_driver():
     chrome_options = webdriver.ChromeOptions()
